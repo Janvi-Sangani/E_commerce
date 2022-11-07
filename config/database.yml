@@ -1,0 +1,35 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: E_commerce_dev
+  username: postgres
+  password: Password123
+  host: localhost
+
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  pool: 5t
+  database: E_commerce_test
+  username: postgres
+  password: Password123
+  host: localhost
+
+staging:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  password: Password123
+  database: E_commerce_staging
+  host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  password: Password123
+  database: E_commerce_prod
+  host: localhost
