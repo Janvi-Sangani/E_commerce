@@ -5,12 +5,27 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= javascript_include_tag "application" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= turbo_frame_tag "remote_modal", target: "_top" %>
   </head>
 
   <body>
+    <div  style="background-color:yellow;">
+    <%  if flash[:messages].present? && flash[:messages].is_a?(String) %>
+      <%= flash[:messages] %>
+    <% else %>
+      <% flash.each do |name, messages| %>
+        <div>
+          <%= messages%>
+        </div>
+      <% end %>
+    <% end %>
+  </div>  
+  <div class="row">
     <%= yield %>
+    <%= turbo_frame_tag "remote_modal", target: "_top" %>
+  </div>
   </body>
 </html>

@@ -1,0 +1,20 @@
+<h1>Customer Details</h1>
+<h3><%= link_to "Home Page", admin_homes_path	%></h3>
+<table border="2" style="width:100%;padding:10px;">
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Total Orders</th>
+  </tr>
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr style="text-align:center">
+        <td><%= customer.id %></td>
+        <td><%= customer.name%></td>
+        <td><%= customer.email %></td>
+        <td><%= customer.orders.count%></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>

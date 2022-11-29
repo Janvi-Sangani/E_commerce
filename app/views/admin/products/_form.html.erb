@@ -1,0 +1,35 @@
+<%= form_for([:admin, @product], data: { turbo: false }) do |form| %>
+  <div>
+    <%= form.label :Name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div><br>
+  <div>
+    <%= form.label :quantity, style: "display: block" %>
+    <%= form.text_field :quantity %>
+  </div><br>
+  <div>
+    <%= form.label :product_category, style: "display: block" %>
+    <%= form.collection_select(:product_category_id, ProductCategory.all, :id, :category) %>
+  </div><br>
+  <div>
+    <%= form.label :price, style: "display: block" %>
+    <%= form.text_field :price %>
+  </div><br>
+  <div>
+    <%= form.label :product_image %>
+    <%= form.file_field :image, name: "products[image]" %>
+  </div>
+  <div>
+    <%if current_user.has_role? :seller %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+    <% else %>
+      <%= form.label :seller, style: "display: block" %>
+      <%= form.collection_select(:user_id, User.with_role(:seller), :id, :name) %>
+    <% end %>
+  </div>
+  
+  <div>
+    <h3><%= form.submit%></h3>
+  </div>
+<% end %>
+<%= link_to "Home Page", admin_homes_path	%></h3>

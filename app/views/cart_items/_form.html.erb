@@ -1,0 +1,19 @@
+<%= form_with(model: cart_item) do |form| %>
+
+  <div class="mb-3">
+    <%= form.hidden_field :product_id, value: @product.id %>
+    <%= form.label :quantity, style: "display: block", class: "form-label" %>
+    <%= form.text_field :quantity, class: "form-control" %>
+    <div style="color: red">
+      <% if cart_item.errors.include?(:quantity) %>
+          <% cart_item.errors.full_messages_for(:quantity).each do |error_message| %>
+            <%= error_message %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Save", class: "btn btn-success btn-block" %>
+  </div>
+<% end %>

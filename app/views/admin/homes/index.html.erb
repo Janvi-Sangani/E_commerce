@@ -1,0 +1,18 @@
+<h1>Welcome to E_commerce_website</h1>
+<h4>User name : <%= current_user.name %><br>
+    Sign in as : <%= current_user.roles.pluck(:name).join('') %></h4>
+<h3>
+
+  <ul>
+    <li><%= link_to "Product_Category", admin_product_categories_path	 %></li><br>
+    <li><%= link_to "Product_list",admin_products_path		%></li><br>
+    <% if @user.has_role? :admin %>
+      <li><%= link_to "Customer_list", admin_customers_path %></li><br>
+      <li><%= link_to "Order_list" , admin_orders_path%></li><br>
+      <li><%= link_to "Seller_list", admin_users_path %>
+     <% elsif @user.has_role? :seller %>
+     <li><%= link_to "Order_Items_list" , admin_order_items_path	%></li><br>
+     <% end%>
+  </ul>
+  <%= button_to "logout", destroy_user_session_path, method: :delete  %>
+</h3> 

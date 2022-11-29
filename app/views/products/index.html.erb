@@ -1,0 +1,45 @@
+<h3><%= link_to "Home Page", homes_path	%></h3>
+<h1>All Products</h1>
+<%# <div style="margin-right: 10px"> %>
+  <%#= search_form_for @q do |f| %>
+      <%#= f.text_field :name, class: "form-control" %>
+      <%#= f.submit%>
+  <%# end %>
+</div>
+<table border="2" style="width:100%;padding:10px;">
+  <tr>
+    <th>Id</th>
+    <th>Product</th>
+    <th>Name</th>
+    <th>Quantity</th>
+    <th>Category</th>
+    <th>Price</th>
+    <th>Add Review</th>
+    <th>Add to Wishlist</th>
+    <th>Status</th>
+    <th>Add to cart</th>
+  </tr>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr style="text-align:center">
+        <td><%= product.id %></td>
+        <td><%= image_tag(product.image.to_s, size: "75") %></td>
+        <td><%= product.name %></td>
+        <td><%= product.quantity %></td>
+        <td><%= product.product_category.category %></td>
+        <td><%= product.price %></td>
+        <td><%= link_to "Add Review", new_review_path(product_id: product.id)%>
+        <td><%= link_to "Add to Wishlist", create_wish_list_wish_lists_path(product_id: product.id, price: product.price)%></td>
+        <td><% if product.quantity == 0 %>
+                <p> Out Of Stock </p>
+               <% else  %><p> Available </p>
+               <% end %></td>
+        <td><% if product.quantity == 0 %>
+                <p> ----- </p>
+            <% else %><%= link_to "Add to cart", new_cart_item_path(product_id: product.id),  class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
+            <% end %></td>
+      </tr>
+      
+    <%end%>
+  </tbody>
+</table>

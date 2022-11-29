@@ -1,0 +1,26 @@
+<h1>Order Details </h1>
+<h3><%= link_to "Home Page", admin_homes_path	%></h3>
+<table border="2" style="width:100%;padding:10px;">
+  <tr>
+    <th>Id</th>
+    <th>product</th>
+    <th>quantity</th>
+    <th>price</th>
+    <th>status</th>
+    <th>Delete</th>
+    <th>Update</th>
+  </tr>
+  <tbody>
+    <% @order_items.each do |order_item| %>
+      <tr style="text-align:center">
+        <td><%= order_item.id %></td>
+        <td><%=link_to order_item.product.name, product_path(id: order_item.product.id) %></td>
+        <td><%= order_item.quantity %></td>
+        <td><%= order_item.price %></td>
+        <td><%= order_item.status %></td>
+        <td><%= button_to 'Destroy', { controller: :order_items, action: :destroy, id: order_item.id }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "Edit quantity", edit_order_item_path(order_item.id), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>

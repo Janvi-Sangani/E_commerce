@@ -1,0 +1,26 @@
+<h1>My Wishlist</h1>
+<h3><%= link_to "Home Page", homes_path	%></h3>
+<table border="2" style="width:100%;padding:10px;">
+  <tr>
+    <th>Id</th>
+    <th>product</th>
+    <th>price</th>
+    <th>Add to cart</th>
+    <th>Delete</th>
+  </tr>
+  <tbody>
+    <% @wish_list_items.each do |wish_list_item| %>
+      <tr style="text-align:center">
+        <td><%= wish_list_item.id %></td>
+        <td><%=link_to wish_list_item.product.name, product_path(id: wish_list_item.product.id) %></td>
+        <td><%= wish_list_item.price %></td>
+        <td><% if wish_list_item.product.quantity == 0 %>
+          <p> ----- </p>
+        <% else %><%= link_to "Add to cart", new_cart_item_path(product_id: wish_list_item.product.id),  class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
+        <% end %></td> 
+        <td><%= button_to 'Destroy', { controller: :wish_lists, action: :destroy, id: wish_list_item.id }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+<h3><%#= link_to "Buy Now", place_orders_path	%><%= link_to "Add more" ,products_path %></h3>

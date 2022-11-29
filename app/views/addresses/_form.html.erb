@@ -1,0 +1,49 @@
+<%= link_to "Back", place_orders_path%>
+<%= form_with(model: address, data:{turbo:false}, remote: true) do |form| %>
+  <div>
+    <%= form.label :address_line1, style: "display: block" %>
+    <%= form.text_field :address_line1 %>
+  </div><br>
+  <div>
+    <%= form.label :address_line2, style: "display: block" %>
+    <%= form.text_field :address_line2 %>
+  </div><br>
+  <div>
+    <%= form.label :address_line3, style: "display: block" %>
+    <%= form.text_field :address_line3 %>
+  </div><br>
+  <div>
+    <%= form.label :city, style: "display: block" %>
+    <%= form.text_field :city %>
+  </div><br>
+  <div>
+    <%= radio_button(:address, :address_type, "Home") %>
+    <%= form.label :Home_address, "Home" %>
+    <%= radio_button(:address, :address_type, "Office") %>
+    <%= form.label :Office_address, "Office" %>
+  </div><br>
+  <div>
+    <%= form.label :pincode, style: "display: block" %>
+    <%= form.text_field :pincode %>
+  </div><br>
+  <div>
+  <%= form.label :state, style: "display: block" %>
+   <%= form.select :state, ["Gujarat", "Maharashtra", "Rajasthan"] %>
+  </div>
+  <div>
+    <%= form.hidden_field :country, value: "India" %>  </div><br>
+  </div>
+  <div>
+    <%= form.label :telephone, style: "display: block" %>
+    <%= form.text_field :telephone %>
+  </div><br>
+  <div>
+    <%= form.label :mobile_no, style: "display: block" %>
+    <%= form.text_field :mobile_no %>
+  </div>
+  <div>
+    <%= form.hidden_field :customer_id, value: current_customer.id %>  </div>
+  <div>
+    <h3><%= form.submit %></h3>
+  </div>
+<% end %>

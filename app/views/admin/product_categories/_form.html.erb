@@ -1,0 +1,18 @@
+<%= form_for([:admin, product_category], data: { turbo: false }) do |form| %>
+  <div>
+    <%= form.label :catagory, style: "display: block" %>
+    <%= form.text_field :category %>
+  </div><br>
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description %>
+  </div><br>
+  <div>
+    <%= form.label :company, style: "display: block" %>
+    <%= form.text_field :companies %>
+  </div><br>
+  <div>
+    <h3><%= form.submit%></h3>
+  </div>
+<% end %>
+<%= link_to "Home Page", admin_homes_path	%></h3>
