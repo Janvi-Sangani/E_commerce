@@ -9,6 +9,4 @@ class Product < ApplicationRecord
 
   mount_uploader :image, FileUploader
   has_many :reviews, dependent: :destroy
-
-  # ratyrate_rateable "quality", "price"
 end
