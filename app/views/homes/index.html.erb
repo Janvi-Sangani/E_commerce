@@ -1,0 +1,13 @@
+<h1>Welcome to E commerce site</h1>
+<h2 style='text-align: right'><%= link_to "My Wishlist", wish_lists_path	%></h2>
+<h2 style='text-align: right'><%= link_to "My cart", cart_items_path%></h2>
+<h2 style='text-align: right'><%= link_to "My orders", my_orders_path	%></h2>
+<h2>Available Catagory</h2>
+<% categories = ProductCategory.select(:id, :category) %>
+<ul style = "list-style-type: square">
+    <% categories.each do |category_id| %>
+    <h3><li><%= link_to category_id.category, products_path(product_category_id: category_id.id) %></li></h3>
+  <% end %>
+</ul>
+
+<%= button_to "logout", destroy_customer_session_path, method: :delete  %>

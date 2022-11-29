@@ -1,0 +1,25 @@
+<h1>My cart</h1>
+<h3><%= link_to "Home Page", homes_path	%></h3>
+<table border="2" style="width:100%;padding:10px;">
+  <tr>
+    <th>Id</th>
+    <th>product</th>
+    <th>quantity</th>
+    <th>price</th>
+    <th>Delete</th>
+    <th>Update</th>
+  </tr>
+  <tbody>
+    <% @cart_items.each do |cart_item| %>
+      <tr style="text-align:center">
+        <td><%= cart_item.id %></td>
+        <td><%=link_to cart_item.product.name, product_path(id: cart_item.product.id) %></td>
+        <td><%= cart_item.quantity %></td>
+        <td><%= cart_item.price %></td>
+        <td><%= button_to 'Destroy', { controller: :cart_items, action: :destroy, id: cart_item.id }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "Edit quantity", edit_cart_item_path(cart_item.id), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+<h3><%= link_to "Buy Now", place_orders_path	%> || <%= link_to "Buy more" ,products_path %></h3>

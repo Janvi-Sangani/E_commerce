@@ -1,0 +1,28 @@
+<h1>All Orders</h1>
+<h3><%= link_to "Home Page", admin_homes_path	%></h3>
+<table border="2" style="width:100%;padding:10px;">
+  <tr>
+    <th>Id</th>
+    <th>Customer</th>
+    <th>Address</th>
+    <th>Total</th>
+    <th>Status</th>
+    <th>Order Details</th>
+  </tr>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr style="text-align:center">
+        <td><%= order.id %></td>
+        <td><%= order.customer.name%></td>
+        <td><%= order.address.city %></td>
+        <td><%= order.total %></td>
+        <td><%= order.status%></td>
+        <td><%= link_to "Order Items", fetch_order_items_admin_order_items_path(order_id: order.id)	%></td>
+        <%#= link_to "Edit quantity", edit_cart_item_path(cart_item.id), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+
+<%#= link_to "Improve Your Ruby Skills", "/order_items/9" %>
+<%#= link_to "Order Items", order_items_path%>

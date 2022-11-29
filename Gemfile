@@ -71,3 +71,11 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "rolify"
+gem 'bootstrap', '~> 5.1', '>= 5.1.3'
+gem "hotwire-rails", "~> 0.1.3"
+gem "pundit"
+gem 'carrierwave', '>= 3.0.0.beta', '< 4.0'
+gem 'ransack', :github => 'activerecord-hackery/ransack', :branch => 'main'
+gem 'ratyrate'

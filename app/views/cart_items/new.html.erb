@@ -1,0 +1,4 @@
+<h2>Add to cart</h2>
+<%= render "remote_modal", title: "New item" do %>
+  <%= render "form", cart_item: @cart_item, product: @product, customer: @customer %>
+<% end %>

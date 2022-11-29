@@ -1,0 +1,25 @@
+<h1>All Category</h1>
+<h3><%= link_to "Add category", new_admin_product_category_path %> ||
+<%= link_to "Home Page", admin_homes_path 	%><br></h3>
+<table border="2" style="width:100%;padding:10px;">
+  <tr>
+    <th>Id</th>
+    <th>Catagory</th>
+    <th>Description</th>
+    <th>Company</th>
+    <th>Delete</th>
+    <th>Update</th>
+  </tr>
+  <tbody>
+    <% @product_categories.each do |product_category| %>
+      <tr style="text-align:center">
+        <td><%= product_category.id %></td>
+        <td><%= link_to product_category.category, product_admin_product_categories_path(product_category_id: product_category.id) %></td>
+        <td><%= product_category.description %></td>
+        <td><%= product_category.companies %></td>
+        <td><%= button_to 'Destroy', { controller: :product_categories, action: :destroy, id: product_category.id }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "Edit data", edit_admin_product_category_path(product_category.id)%> </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table><br>

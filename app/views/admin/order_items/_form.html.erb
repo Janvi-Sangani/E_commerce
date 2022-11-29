@@ -1,0 +1,17 @@
+<%= form_for([:admin, @order_item], data: { turbo: false }) do |form| %>
+  <div class="mb-3">
+    <%= form.label :status, style: "display: block", class: "form-label" %>
+    <%= form.select :status, options_for_select(OrderItem.statuses.map {|key, value| [key.titleize, OrderItem.statuses.key(value)]}, @order_item.status) %>
+    <div style="color: red">
+      <% if @order_item.errors.include?(:status) %>
+          <% @order_item.errors.full_messages_for(:status).each do |error_message| %>
+            <%= error_message %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Save", class: "btn btn-success btn-block" %>
+  </div>
+<% end %>

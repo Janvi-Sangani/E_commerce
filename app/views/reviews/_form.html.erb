@@ -1,0 +1,23 @@
+<%= javascript_include_tag 'ratyrate.js', "data-turbolinks-track": false %>
+<%= form_with(model: review, data: { turbo: false }) do |form| %>
+  <div class="feild">
+    <%#= form.label :rating, style: "display: block" %>
+    <%#= form.text_field :rating %>
+    <div id="star-rating"></div>
+  </div><br>
+  <div>
+    <%= form.label :comment, style: "display: block" %>
+    <%= form.text_field :comment %>
+  </div><br>
+  <div>
+    <h3><%= form.submit%></h3>
+  </div>
+<% end %>
+<%= link_to "Home Page", homes_path	%></h3>
+
+<script>
+  $('star-rating').raty({
+    path: '/assets/images/',
+    scoreName: 'review[rating]'
+  });
+</script>

@@ -1,0 +1,35 @@
+<h3><%= link_to "Back", place_orders_path%> || <%= link_to "Home Page", homes_path	%></h3>
+<h2>Your Order Details</h2>
+
+<%= form_tag orders_path, method: :post do %>
+  <p>Shipping to : <%= current_customer.name %><br>
+  You have selected :<%= @address.address_type %> Address</p>
+  <p>Address: <%= @address.address_line1 + ", " +  @address.address_line2 + ", " +  @address.address_line3 + ", " + @address.city + ". "%><br>
+  pincode: <%= @address.pincode %><br>
+  state: <%= @address.state %><br>
+  mobile_no: <%= @address.mobile_no %></p>
+  <%= hidden_field_tag "address_id", @address.id %>
+
+  <h3>Your Cart Items</h3>
+  <table border="2" style="width:100%;padding:10px;">
+    <tr>
+      <th>Id</th>
+      <th>product</th>
+      <th>quantity</th>
+      <th>Price</th>
+    </tr>
+    <tbody>
+      <% @cart_items.each do |cart_item| %>
+        <tr style="text-align:center">
+          <td><%= cart_item.id %></td>
+          <td><%= cart_item.product.name %></td>
+          <td><%= cart_item.quantity %></td>
+          <td><%= cart_item.price %></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+
+  <p>Total_price: <%= @total_amount %>
+  <div><%= submit_tag 'Place Order'%></div>
+<% end %>

@@ -1,0 +1,10 @@
+<h3><%= link_to "Home Page", homes_path	%></h3>
+<h1>All Orders</h1>
+<% @orders.each do |order| %><br>
+  Total ordered items = <%= order.order_items.count%><br>
+  Total amount = <%= order.total %><br>
+  Status = <%= order.status %><br>
+  Ordered date = <%= order.created_at.to_date %><br>
+  <%= link_to "More Details", fetch_order_items_order_items_path(order_id: order.id)%><br>
+<% end %>
+
