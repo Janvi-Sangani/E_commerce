@@ -14,7 +14,6 @@
     <th>Quantity</th>
     <th>Category</th>
     <th>Price</th>
-    <th>Add Review</th>
     <th>Add to Wishlist</th>
     <th>Status</th>
     <th>Add to cart</th>
@@ -28,7 +27,6 @@
         <td><%= product.quantity %></td>
         <td><%= product.product_category.category %></td>
         <td><%= product.price %></td>
-        <td><%= link_to "Add Review", new_review_path(product_id: product.id)%>
         <td><%= link_to "Add to Wishlist", create_wish_list_wish_lists_path(product_id: product.id, price: product.price)%></td>
         <td><% if product.quantity == 0 %>
                 <p> Out Of Stock </p>

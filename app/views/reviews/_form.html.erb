@@ -1,23 +1,15 @@
-<%= javascript_include_tag 'ratyrate.js', "data-turbolinks-track": false %>
-<%= form_with(model: review, data: { turbo: false }) do |form| %>
-  <div class="feild">
-    <%#= form.label :rating, style: "display: block" %>
-    <%#= form.text_field :rating %>
-    <div id="star-rating"></div>
-  </div><br>
-  <div>
-    <%= form.label :comment, style: "display: block" %>
-    <%= form.text_field :comment %>
-  </div><br>
-  <div>
-    <h3><%= form.submit%></h3>
-  </div>
-<% end %>
-<%= link_to "Home Page", homes_path	%></h3>
+<%= form_tag attempt_answer_feedback_answers_path , method: :get  do%>
 
-<script>
-  $('star-rating').raty({
-    path: '/assets/images/',
-    scoreName: 'review[rating]'
-  });
-</script>
+  <h2>Give rate to this product</h2>
+    1<%= radio_button_tag "rating", 1, false %><br>
+    2<%= radio_button_tag "rating", 2, false %><br>
+    3<%= radio_button_tag "rating", 3, false %><br>
+    4<%= radio_button_tag "rating", 4, false %><br>
+    5<%= radio_button_tag "rating", 5, false %><br>
+    <%= hidden_field_tag :product_id, value: @product.id %>
+    <div>
+      Add comment:
+      <%= text_field_tag :comment %>
+    </div>
+      <%= submit_tag "next" %>
+  <% end %><br>

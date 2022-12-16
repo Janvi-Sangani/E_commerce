@@ -1,0 +1,31 @@
+<%= link_to "Back", my_orders_path%>
+<h2>Feedback questions</h2>
+<div>
+<%#= form_with(model: feedback_answer, data:{turbo:false}, remote: true) do |form| %>
+<%#= form.hidden_field :customer_id, value: current_customer.id %>
+  <% @category_question.each do |category_question| %>
+    <ul><li><%=  category_question.question %><br>
+
+    <%if category_question.question_type == "single_choice"%>
+      <% category_question.feedback_question_options.each do |x|%>
+      <%#= form.hidden_field :feedback_question_id, value: x.feedback_question_id%>
+      <%#= radio_button(x.value,checked = false, x.value)%>
+      <%= radio_button_tag  :answer ,x.value, checked = false %><%=x.value%><br>
+      <%end%>
+    <% elsif category_question.question_type == "multi_choice"%>
+    <% category_question.feedback_question_options.each do |x|%>
+     <%#= form.hidden_field :feedback_question_id, value: x.feedback_question_id%>
+      <%= check_box_tag x.value %><%=x.value%><br>
+      <%end%>
+    <% elsif category_question.question_type == "text"%>
+      <%= text_field_tag(:answer)%>
+    <% else %>
+    <% options = options_from_collection_for_select(category_question.feedback_question_options, 'id', 'value') %>
+      <%#= select_tag "answer",category_question.feedback_question_options.collect {|u| [ u.value, u.id ] } %>
+       <%= select_tag "answer", options%>
+    <% end %></li></ul>
+  <% end %>
+  <%#= form.submit%>
+</div>
+
+

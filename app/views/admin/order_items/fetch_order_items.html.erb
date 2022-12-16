@@ -19,7 +19,7 @@
         <td><%= order_item.price %></td>
         <td><%= order_item.status %></td>
         <td><%= order_item.product.user.name %></td>
-        <%if order_item.status == "deliverd" %>
+        <%if order_item.status == "delivered" %>
           <td> ---- </td>
         <% else %>
            <td><%= link_to "Edit Status", edit_admin_order_item_path(order_item.id), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %></td>

@@ -1,0 +1,48 @@
+<%# <script src=”https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js”></script>
+<script src=”https://onlysharepoint2013.sharepoint.com/sites/Raju/tsinfo/SiteAssets/HtmlJsCssFiles/SatisfactionDropdown.js”></script> %>
+<%#= javascript_include_tag "script" %>
+<%# <script src="/script.js"></script> %>
+<%= javascript_include_tag "script", "data-turbolinks-track" => true  %>
+<%= form_for([:admin, @feedback_question], data: { turbo: false }) do |form| %>
+  <% if @feedback_question.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@feedback_question.errors.count, "error") %> prohibited this feedback_question from being saved:</h2>
+      <ul>
+        <% @feedback_question.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :question_type, style: "display: block", class: "form-label" %>
+    <%= form.select :question_type, options_for_select(FeedbackQuestion.question_types.map {|key, value| [key.titleize, FeedbackQuestion.question_types.key(value)]}, @feedback_question.question_type) %>
+  </div>
+  <%# WHO, {}, :onChange => "showDemographics(this)", :prompt => true %>
+
+  <div>
+    <%= form.label :question, style: "display: block" %>
+    <%= form.text_field :question %>
+  </div>
+
+  <div>
+    <%= form.hidden_field :product_category_id %>
+  </div>
+  
+  <div id="options">
+    <div id="feedback_question_options">
+    <%= form.fields_for :feedback_question_options, @feedback_question.feedback_question_options.build do |add_option| %>
+    <%= render "admin/feedback_questions/add_options", :form => add_option%>
+    <% end %>
+    </div>
+    <div class="links">
+      <%= link_to_add_association "Add option", form, :feedback_question_options, partial: "admin/feedback_questions/add_options", form_name: "form" %> 
+    </div>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+

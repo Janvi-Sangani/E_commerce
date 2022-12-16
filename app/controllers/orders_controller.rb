@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
       @total_amount = calculate_price
       order = Order.new(address_id: params[:address_id], customer_id: current_customer.id, total: @total_amount, status: "placed")
       order.save!
+      OrderMailer.with(order: current_customer.email).order_placed.deliver_now
       @cart_items = current_customer.cart_items
       @cart_items.each do |cart_item|
         OrderItem.create!(product_id: cart_item.product_id, order_id: order.id, quantity: cart_item.quantity, price: cart_item.price, status: "placed")

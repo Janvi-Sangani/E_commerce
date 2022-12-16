@@ -12,37 +12,23 @@ Rails.application.routes.draw do
   devise_for :users, path: 'users', controllers: { sessions: "users/sessions",registrations: "users/registrations" }
   devise_for :customers, path: 'customers', controllers: { sessions: "customers/sessions",registrations: "customers/registrations" }
 
-  resources :products do
-  end
-
+  resources :products
   resources :customers
   resources :reviews
-  
-  namespace :admin do
-    resources :products
-    resources :users
-    resources :homes
-    resources :orders
-    resources :customers
-    resources :order_items do
-      collection do
-        get :fetch_order_items
-      end
-    end
-    resources :product_categories do
-      collection do
-        get :product
-      end
+  resources :homes
+  resources :addresses
+  resources :feedback_answers do
+    collection do
+      get :attempt_answer
     end
   end
+
 
   resources :cart_items do
     collection do
       get 'empty' => 'cart_items#empty_cart'
     end
   end
-  resources :homes
-  resources :addresses
   resources :orders do
     collection do
       get 'place' => 'orders#place_order'
@@ -62,4 +48,28 @@ Rails.application.routes.draw do
       get :create_wish_list
     end
   end 
+
+
+  namespace :admin do
+    resources :products
+    resources :users
+    resources :homes
+    resources :orders
+    resources :customers
+    resources :feedback_questions do
+      collection do
+        get :as_per_category
+      end
+    end
+    resources :order_items do
+      collection do
+        get :fetch_order_items
+      end
+    end
+    resources :product_categories do
+      collection do
+        get :product
+      end
+    end
+  end
 end

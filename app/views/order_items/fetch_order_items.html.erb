@@ -8,9 +8,9 @@
     <th>price</th>
     <th>Status</th>
     <th>Seller</th>
-    <th>Update</th>
+    <th>Review</th>
   </tr>
-  <tbody>
+  <tbody> 
     <% @order_items.each do |order_item| %>
       <tr style="text-align:center">
         <td><%= order_item.id %></td>
@@ -19,6 +19,11 @@
         <td><%= order_item.price %></td>
         <td><%= order_item.status %></td>
         <td><%= order_item.product.user.name %></td>
+        <%if order_item.status == "delivered"%>
+          <td><%= link_to "Add Review", new_review_path(product_id: order_item.product.id)%></td>
+        <% else %>
+          <td>----</td>
+        <% end %>
       </tr>
     <%end%>
   </tbody>

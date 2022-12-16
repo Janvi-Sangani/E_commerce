@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  feedback_questions: one
+  value: MyString
+
+two:
+  feedback_questions: two
+  value: MyString

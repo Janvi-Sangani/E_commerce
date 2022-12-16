@@ -9,4 +9,5 @@ class Product < ApplicationRecord
 
   mount_uploader :image, FileUploader
   has_many :reviews, dependent: :destroy
+  has_many :feedback_answers
 end

@@ -9,7 +9,8 @@
     <th>Company</th>
     <th>Delete</th>
     <th>Update</th>
-  </tr>
+    <th>Feedback Question</th>
+    </tr>
   <tbody>
     <% @product_categories.each do |product_category| %>
       <tr style="text-align:center">
@@ -19,6 +20,7 @@
         <td><%= product_category.companies %></td>
         <td><%= button_to 'Destroy', { controller: :product_categories, action: :destroy, id: product_category.id }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to "Edit data", edit_admin_product_category_path(product_category.id)%> </td>
+        <td><%= link_to "Feedback questions", as_per_category_admin_feedback_questions_path(product_category_id: product_category.id)%></td>
       </tr>
     <%end%>
   </tbody>

@@ -1,0 +1,26 @@
+<%= form_with(model: review, data: { turbo: false }) do |form| %>  <div>
+    <%= radio_button(:review, :rating, 1) %>
+    <%= form.label :select_1, 1 %>
+
+    <%= radio_button(:review, :rating, 2) %>
+    <%= form.label :select_2, 2 %>
+
+    <%= radio_button(:review, :rating, 3) %>
+    <%= form.label :select_3, 3 %>
+
+    <%= radio_button(:review, :rating, 4) %>
+    <%= form.label :select_4, 4 %>
+
+    <%= radio_button(:review, :rating, 5) %>
+    <%= form.label :select_5, 5 %>
+  </div><br>
+   <%= form.hidden_field :product_id, value: @product.id %>
+  <div>
+    <%= form.label :Add_comment, style: "display: block" %>
+    <%= form.text_field :comment %>
+  </div>
+  <div>
+    <h3><%= form.submit%></h3>
+  </div>
+<% end %>
+<%= link_to "Home Page", homes_path	%></h3>

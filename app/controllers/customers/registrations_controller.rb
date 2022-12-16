@@ -49,6 +49,7 @@ class Customers::RegistrationsController < Devise::RegistrationsController
         puts "new record"
     else #user created
         puts "user created"
+        CustomerMailer.with(customer: resource).welcome_email.deliver_now
         return homes_path			
     end
   end

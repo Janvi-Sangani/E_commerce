@@ -16,8 +16,9 @@ module Admin
       if @order_item.present?
         @order_item.update(order_item_params)
         @order_item_status = @order.order_items.pluck(:status).uniq
-        if @order_item_status == ["deliverd"]
-          @order.update(status: "deliverd")
+        if @order_item_status == ["delivered"]
+          @order.update(status: "delivered")
+          OrderMailer.with(order: @order.customer.email).order_delivered.deliver_now
           redirect_to admin_orders_path
         end
       else
