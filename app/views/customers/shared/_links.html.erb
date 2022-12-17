@@ -1,3 +1,16 @@
+<style>
+a {
+  font-size: 14px;
+  color: #4b5563;
+  margin-right: 1rem;
+  text-decoration: none;
+}
+a:where(:hover, :active) {
+  text-decoration: underline;
+  color: #60a5fa;
+}
+</style>
+
 <%- if controller_name != 'sessions' %>
   <%= link_to "Log In", new_session_path(resource_name) %>
 <% end %>
