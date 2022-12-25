@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_05_071000) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_19_070456) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,15 +67,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_071000) do
   end
 
   create_table "feedback_answers", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "customer_id", null: false
     t.bigint "feedback_question_id", null: false
+    t.string "answer_type"
     t.string "answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_feedback_answers_on_customer_id"
+    t.bigint "feedback_id"
+    t.index ["feedback_id"], name: "index_feedback_answers_on_feedback_id"
     t.index ["feedback_question_id"], name: "index_feedback_answers_on_feedback_question_id"
-    t.index ["product_id"], name: "index_feedback_answers_on_product_id"
   end
 
   create_table "feedback_question_options", force: :cascade do |t|
@@ -93,6 +92,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_071000) do
     t.datetime "updated_at", null: false
     t.integer "question_type"
     t.index ["product_category_id"], name: "index_feedback_questions_on_product_category_id"
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_feedbacks_on_customer_id"
+    t.index ["order_id"], name: "index_feedbacks_on_order_id"
+    t.index ["product_id"], name: "index_feedbacks_on_product_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -140,11 +150,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_071000) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
     t.bigint "product_category_id", null: false
     t.integer "price"
     t.bigint "user_id"
     t.string "image"
-    t.string "status"
     t.index ["product_category_id"], name: "index_products_on_product_category_id"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
@@ -158,7 +168,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_071000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["rateable_id", "rateable_type"], name: "index_rates_on_rateable_id_and_rateable_type"
-    t.index ["rateable_type", "rateable_id"], name: "index_rates_on_rateable_type_and_rateable_id"
+    t.index ["rateable_type", "rateable_id"], name: "index_rates_on_rateable"
     t.index ["rater_id"], name: "index_rates_on_rater_id"
   end
 
@@ -171,7 +181,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_071000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type"
-    t.index ["cacheable_type", "cacheable_id"], name: "index_rating_caches_on_cacheable_type_and_cacheable_id"
+    t.index ["cacheable_type", "cacheable_id"], name: "index_rating_caches_on_cacheable"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -229,11 +239,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_071000) do
   add_foreign_key "addresses", "customers"
   add_foreign_key "cart_items", "customers"
   add_foreign_key "cart_items", "products"
-  add_foreign_key "feedback_answers", "customers"
   add_foreign_key "feedback_answers", "feedback_questions"
-  add_foreign_key "feedback_answers", "products"
   add_foreign_key "feedback_question_options", "feedback_questions"
   add_foreign_key "feedback_questions", "product_categories"
+  add_foreign_key "feedbacks", "customers"
+  add_foreign_key "feedbacks", "orders"
+  add_foreign_key "feedbacks", "products"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "customers"

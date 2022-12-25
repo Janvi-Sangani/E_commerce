@@ -10,4 +10,5 @@ class Customer < ApplicationRecord
     has_many :wish_lists, dependent: :destroy
     has_many :reviews, dependent: :destroy
     has_many :product_answers
+    has_many :feedbacks
 end
