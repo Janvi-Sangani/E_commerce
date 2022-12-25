@@ -34,8 +34,8 @@ module Admin
         flash[:messages] = "please enter uniq values"
         redirect_to admin_feedback_questions_path
       else
-        binding.irb
         @feedback_question.save
+        flash[:messages] = "Question was added!"
         redirect_to admin_feedback_questions_path
       end
     end
@@ -53,8 +53,7 @@ module Admin
     end
 
     def destroy
-      @feedback_question.destroy  
-      # redirect_to admin_product_categories_path
+      @feedback_question.destroy
       render "new"
       flash[:messages] = "Question was deleted!"
     end
@@ -65,8 +64,7 @@ module Admin
     end
 
     def feedback_question_params
-      # params.require(:feedback_question).permit(:question, :product_category_id, feedback_question_options_attributes: FeedbackQuestionOption.attribute_names.map(&:to_sym))
-      params.require(:feedback_question).permit(:question, :product_category_id, feedback_question_options_attributes: [:id, :feedback_questions_id, :value])
+      params.require(:feedback_question).permit(:question, :product_category_id, :question_type,feedback_question_options_attributes: [:id, :feedback_questions_id, :value])
     end
   end
 end

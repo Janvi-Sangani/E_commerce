@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   devise_for :users, path: 'users', controllers: { sessions: "users/sessions",registrations: "users/registrations" }
   devise_for :customers, path: 'customers', controllers: { sessions: "customers/sessions",registrations: "customers/registrations" }
 
-  resources :products
+  resources :products do
+    collection do
+      get "search", to: "products#search"
+    end
+  end
   resources :customers
   resources :reviews
   resources :homes
@@ -20,6 +24,7 @@ Rails.application.routes.draw do
   resources :feedback_answers do
     collection do
       get :attempt_answer
+      post :submit_review
     end
   end
 
@@ -54,7 +59,11 @@ Rails.application.routes.draw do
     resources :products
     resources :users
     resources :homes
-    resources :orders
+    resources :orders do
+      collection do
+        get "order_search", to: "orders#order_search"
+      end
+    end
     resources :customers
     resources :feedback_questions do
       collection do

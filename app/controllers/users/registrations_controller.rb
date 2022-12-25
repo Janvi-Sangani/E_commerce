@@ -15,12 +15,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
     def create
       @user = User.new(sign_up_params.except(:role))
-      if @user.save!
+      if @user.save
         @user.add_role(sign_up_params[:role])
         sign_in(@user)
-        # binding.irb
         redirect_to admin_products_path		
       else
+        redirect_to new_user_registration_path
+        flash[:messages] = "Please enter valid details"
       end
     end
   

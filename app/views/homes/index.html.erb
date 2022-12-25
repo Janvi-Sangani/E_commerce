@@ -1,13 +1,47 @@
-<h1>Welcome to E commerce site</h1>
-<h2 style='text-align: right'><%= link_to "My Wishlist", wish_lists_path	%></h2>
-<h2 style='text-align: right'><%= link_to "My cart", cart_items_path%></h2>
+<%= stylesheet_link_tag 'home.css' %>
+<header class='header'>
+<div class='logo'>
+<a  href=''>E-Commerce</a>
+</div>
+<nav class='navbar'>
+<div class='drop-down category'>
+<label>Category</label>
+<select class='caregory-options'>
+<option>Kids Wear</option>
+<option>Electronics</option>
+</select>
+</div>
+<div><%= link_to '<i class="fa-solid fa-cart-plus fa-xl"></i> '.html_safe, cart_items_path %></div>
+<%# <i class="fa-solid fa-cart-plus fa-xl"></i> %>
+<div class='drop-down account'>
+<label>
+<img src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60'/>
+</label>
+<select class='account-options'>
+<option>My Whislist</option>
+<option>My Orders</option>
+<option>Logout</option>
+</select>
+</div>
+</nav>
+</header>
+
+<div>
+<br><%= form_with(model: @product, url: search_products_path,scope: :product, method: :get)  %>
+  <input name="search" type="text" placeholder="Search.."><br>
+  <%= number_field_tag(:price, :value ,in: 300..2000, placeholder: "Max range")%><br><br>
+  <button type="submit">search</button>
+  </form>
+</div>
+
 <h2 style='text-align: right'><%= link_to "My orders", my_orders_path	%></h2>
+<h2 style='text-align: right'><%= link_to "My Wishlist", wish_lists_path %></h2>
+<h2 style='text-align: right'><%= link_to "My cart", cart_items_path%></h2>
 <h2>Available Catagory</h2>
 <% categories = ProductCategory.select(:id, :category) %>
 <ul style = "list-style-type: square">
     <% categories.each do |category_id| %>
-    <h3><li><%= link_to category_id.category, products_path(product_category_id: category_id.id) %></li></h3>
+    <h3><li> <%= link_to category_id.category, products_path(product_category_id: category_id.id)%></li></h3>
   <% end %>
 </ul>
-
 <%= button_to "logout", destroy_customer_session_path, method: :delete  %>

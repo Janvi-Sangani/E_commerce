@@ -3,22 +3,19 @@ class ProductsController < ApplicationController
   before_action :authenticate_customer!
 
   def index
-    #  @q = Product.ransack(name_eq: params[:q])
-    #  @products = @q.result
-    if  params[:product_category_id].present?
+    if params[:product_category_id].present?
      @products = Product.where(product_category_id: params[:product_category_id])
     else
      @products = Product.all.order(updated_at: :desc)
     end
-    
-    # @q = Product.ransack(params[:q])
-    # binding.irb
-    # if  params[:product_category_id].present?
-    #   @products =  @q.result(distinct: true)
-    # #  .where(product_category_id: params[:product_category_id])
-    # else
-    #   @products = @q.result
-    # #  .all.order(updated_at: :desc)
+  end
+
+  def search
+    @products = Product.filter(params.slice(:search, :price))
+    if @products.count == 0
+      flash[:messages] = "Sorry no matches for #{params[:search]}"
+      redirect_to homes_path
+    end
   end
 
   def show

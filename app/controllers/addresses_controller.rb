@@ -12,12 +12,9 @@ class AddressesController < ApplicationController
   def create
     address_params.present?
     @address = Address.new(address_params)
-    # binding.irb
     if @address.save
-      # flash.now[:messages] = @address.errors.full_messages
       redirect_to place_orders_path
     else
-      # binding.irb
       flash.now[:messages] = @address.errors.full_messages
       render "new"
     end

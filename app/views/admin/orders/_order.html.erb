@@ -1,16 +1,6 @@
 <h1>All Orders</h1>
 <h3><%= link_to "Home Page", admin_homes_path	%></h3>
 
-<div>
-<%= form_with(model:[:admin, @order], url: order_search_admin_orders_path,scope: :order, method: :get)  %>
-  <%= text_field_tag 'search', nil, placeholder: 'Search...' %><br>
-  <%= text_field_tag 'price', nil, placeholder: 'Amount'%><br>
-  <%= select_tag :status, options_for_select(Order.statuses.map {|k, v| [k.humanize, v]}) %>
-  <%#= date_field 'place_date'%>
-  <input type="date" id="place_order" name="place_order"><br>
-  <button type="submit">search</button>
-  </form>
-</div>
 <table border="2" style="width:100%;padding:10px;">
   <tr>
     <th>Id</th>
