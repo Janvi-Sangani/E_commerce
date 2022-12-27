@@ -9,7 +9,6 @@ class Customers::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(resource)
-    # binding.irb
       return homes_path		
     end
 

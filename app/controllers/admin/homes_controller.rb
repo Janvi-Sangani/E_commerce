@@ -3,7 +3,6 @@ module Admin
     before_action :authenticate_user!
  
     def index
-      # binding.irb
       @user = pundit_user
     end
   end

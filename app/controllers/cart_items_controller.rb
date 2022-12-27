@@ -21,10 +21,9 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    # binding.irb
     product = Product.find(params[:cart_item][:product_id].to_i)
     @cart_items = current_customer.cart_items
-    if product.quantity >= params[:cart_item][:quantity].to_i && params[:cart_item][:quantity].to_i != 0
+    if product.quantity >= params[:cart_item][:quantity].to_i && params[:cart_item][:quantity].to_i > 0
       if @cart_items.pluck(:product_id).include?(params[:cart_item][:product_id].to_i)
         update_product = CartItem.find_by(product_id: params[:cart_item][:product_id])
         update_product.update(quantity: update_product.quantity + params[:cart_item][:quantity].to_i )

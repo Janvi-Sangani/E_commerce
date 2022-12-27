@@ -1,31 +1,35 @@
-<%= link_to "Back", my_orders_path%>
+<h3><%= link_to "Back", my_orders_path %></h3>
 <h2>Feedback questions</h2>
-<div>
-<%#= form_with(model: feedback_answer, data:{turbo:false}, remote: true) do |form| %>
-<%#= form.hidden_field :customer_id, value: current_customer.id %>
-  <% @category_question.each do |category_question| %>
-    <ul><li><%=  category_question.question %><br>
-
-    <%if category_question.question_type == "single_choice"%>
-      <% category_question.feedback_question_options.each do |x|%>
-      <%#= form.hidden_field :feedback_question_id, value: x.feedback_question_id%>
-      <%#= radio_button(x.value,checked = false, x.value)%>
-      <%= radio_button_tag  :answer ,x.value, checked = false %><%=x.value%><br>
-      <%end%>
-    <% elsif category_question.question_type == "multi_choice"%>
-    <% category_question.feedback_question_options.each do |x|%>
-     <%#= form.hidden_field :feedback_question_id, value: x.feedback_question_id%>
-      <%= check_box_tag x.value %><%=x.value%><br>
-      <%end%>
-    <% elsif category_question.question_type == "text"%>
-      <%= text_field_tag(:answer)%>
-    <% else %>
-    <% options = options_from_collection_for_select(category_question.feedback_question_options, 'id', 'value') %>
-      <%#= select_tag "answer",category_question.feedback_question_options.collect {|u| [ u.value, u.id ] } %>
-       <%= select_tag "answer", options%>
-    <% end %></li></ul>
-  <% end %>
-  <%#= form.submit%>
-</div>
-
-
+<%= form_tag submit_review_feedback_answers_path , method: :post  do %>
+  <%= hidden_field_tag "product_id", params[:product_id].scan(/\d+/).first.to_i %>
+  <%= hidden_field_tag "customer_id", current_customer.id %>
+  <%= hidden_field_tag "order_id", params[:order_id].scan(/\d+/).first.to_i %>
+  <% @category_question.each do |category_question| %><br>
+    <%= fields_for "feedback_answer[]", @feedback_answer do |fanswer| %>
+      <%= fanswer.label category_question.question %><br>
+      <%if category_question.question_type == "single_choice"%>
+        <%= fanswer.hidden_field :feedback_question_id, value: category_question.id %>
+        <%= fanswer.hidden_field :answer_type, value: category_question.question_type %>
+        <% category_question.feedback_question_options.each do |x|%>
+          <%= fanswer.radio_button :answer ,x.value %><%=x.value%><br>
+        <%end%>
+      <% elsif category_question.question_type == "multi_choice"%>
+        <%= fanswer.hidden_field :feedback_question_id, value: category_question.id %>
+        <%= fanswer.hidden_field :answer_type, value: category_question.question_type %>
+        <% category_question.feedback_question_options.each do |x|%>
+          <%= fanswer.check_box :answer %><%=x.value%><br>
+        <%end%>
+      <% elsif category_question.question_type == "text"%>
+        <%= fanswer.hidden_field :feedback_question_id, value: category_question.id %>
+        <%= fanswer.hidden_field :answer_type, value: category_question.question_type %>
+        <%= fanswer.text_field :answer %><br>
+      <% else %>
+      <% options = options_from_collection_for_select(category_question.feedback_question_options, 'id', 'value') %>
+      <%= fanswer.hidden_field :feedback_question_id, value: category_question.id %>
+      <%= fanswer.hidden_field :answer_type, value: category_question.question_type %>
+      <%= fanswer.select :answer, [options] %><br>
+      <% end %>
+    <%end%>
+  <%end%><br>
+  <%= submit_tag "next" %>
+<% end %>

@@ -77,10 +77,10 @@ gem 'bootstrap', '~> 5.1', '>= 5.1.3'
 gem "hotwire-rails", "~> 0.1.3"
 gem "pundit"
 gem 'carrierwave', '>= 3.0.0.beta', '< 4.0'
-gem 'ransack', :github => 'activerecord-hackery/ransack', :branch => 'main'
 gem 'jquery-rails'
 gem 'ratyrate'
 gem 'jquery-raty-rails', github: 'bmc/jquery-raty-rails' 
 gem "cocoon"  
 # gem 'stripe', "~> 1.57.1"
 gem 'stripe', '~> 8.0'
+

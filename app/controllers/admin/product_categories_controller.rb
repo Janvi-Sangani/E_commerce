@@ -17,6 +17,7 @@ module Admin
     def create
       @product_category = ProductCategory.new(product_category_params)
       if @product_category.save
+      flash[:messages] = "Category Added!"
       redirect_to admin_product_categories_path			
       else
         flash.now[:messages] = @product_category.errors.full_messages

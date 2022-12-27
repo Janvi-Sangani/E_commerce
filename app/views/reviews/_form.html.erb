@@ -12,4 +12,5 @@
       <%= text_field_tag :comment %>
     </div>
       <%= submit_tag "next" %>
+    <%= hidden_field_tag :order_id, value: @order.id%>
   <% end %><br>
