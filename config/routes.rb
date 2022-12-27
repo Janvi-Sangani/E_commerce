@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     end
   end
 
-
+  resources :charges, only: [:new, :create]
   resources :cart_items do
     collection do
       get 'empty' => 'cart_items#empty_cart'

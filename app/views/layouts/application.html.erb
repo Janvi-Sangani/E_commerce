@@ -23,8 +23,8 @@
   </head>
 
   <body>
-    <div  class="warning">
     <%  if flash[:messages].present? && flash[:messages].is_a?(String) %>
+    <div  class="warning">
       <%= flash[:messages] %>
     <% else %>
       <% flash.each do |name, messages| %>
