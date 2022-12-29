@@ -38,14 +38,19 @@ class StripeChargesServices
   def create_charge(customer)
     stripe_payment = Stripe::PaymentIntent.create(
       customer: customer.id,
-      amount: order_amount,
+      amount: calculate_price,
       description: customer.email,
       currency: "usd"
     )
-    Payment.create(customer_id: @customer.id, amount: order_amount, payment_method: "card", stripe_payment_id: stripe_payment.id)
+    Payment.create(customer_id: @customer.id, amount: calculate_price, payment_method: "card", stripe_payment_id: stripe_payment.id)
   end
 
-  def order_amount
-    Order.find_by(id: order_id).total.to_i
+  # def order_amount
+  #   Order.find_by(id: order_id).total.to_i
+  # end
+
+  def calculate_price
+    @cart_items = @customer.cart_items
+    @cart_items.sum(:price).to_i
   end
 end

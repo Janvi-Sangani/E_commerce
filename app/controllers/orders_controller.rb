@@ -7,7 +7,6 @@ class OrdersController < ApplicationController
 
   def order_detail
     if params[:address_id].present?
-      binding.irb
       @address = Address.find_by(id: params["address_id"])
       @cart_items = current_customer.cart_items
       @total_amount = calculate_price
@@ -19,12 +18,12 @@ class OrdersController < ApplicationController
   end
 
   def place_order
+    flash[:messages] = "Please select an address"
     @addresses = current_customer.addresses
     @total_amount = calculate_price
   end
 
   def create_order
-    binding.irb
     if params[:address_id].present?
       @total_amount = calculate_price
       order = Order.new(address_id: params[:address_id], customer_id: current_customer.id, total: @total_amount, status: "placed")

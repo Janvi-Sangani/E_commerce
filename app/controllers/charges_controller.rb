@@ -4,15 +4,16 @@ class ChargesController < ApplicationController
   end
 
   def create
-    binding.irb
-    StripeChargesServices.new(charges_params, current_customer).call
-    redirect_to my_orders_path
+    if params[:address_id].present?
+      StripeChargesServices.new(charges_params, current_customer).call
+      redirect_to details_orders_path(address_id: params[:address_id])
+    end
   end
 
   private
 
   def charges_params
-    params.permit(:stripeEmail, :stripeToken).merge(order_id: 3)
+    params.permit(:stripeEmail, :stripeToken, :order_id)
   end
 
   def catch_exception(exception)
