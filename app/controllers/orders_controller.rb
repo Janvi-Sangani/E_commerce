@@ -18,10 +18,9 @@ class OrdersController < ApplicationController
   end
 
   def place_order
+    flash[:messages] = "Please select an address"
     @addresses = current_customer.addresses
-    if params[:address_id].present?
-      redirect_to details_orders_path
-    end
+    @total_amount = calculate_price
   end
 
   def create_order
