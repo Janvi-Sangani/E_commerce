@@ -7,6 +7,9 @@ class ChargesController < ApplicationController
     if params[:address_id].present?
       StripeChargesServices.new(charges_params, current_customer).call
       redirect_to details_orders_path(address_id: params[:address_id])
+    else
+      flash[:messages] = "Please select an address!"
+      redirect_to place_orders_path
     end
   end
 
