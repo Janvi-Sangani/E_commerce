@@ -6,14 +6,10 @@ class OrdersController < ApplicationController
   end
 
   def order_detail
-    if params[:address_id].present?
-      @address = Address.find_by(id: params["address_id"])
-      @cart_items = current_customer.cart_items
-      @total_amount = calculate_price
-    else
-      @addresses = current_customer.addresses
-      flash[:messages] = "Please select any one address"
-      redirect_to place_orders_path
+    params[:address_id].present?
+    @address = Address.find_by(id: params["address_id"])
+    @cart_items = current_customer.cart_items
+    @total_amount = calculate_price
     end
   end
 

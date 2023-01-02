@@ -1,7 +1,4 @@
-<%# <script src=”https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js”></script>
 <script src=”https://onlysharepoint2013.sharepoint.com/sites/Raju/tsinfo/SiteAssets/HtmlJsCssFiles/SatisfactionDropdown.js”></script> %>
-<%#= javascript_include_tag "script" %>
-<%# <script src="/script.js"></script> %>
 <%= javascript_include_tag "script", "data-turbolinks-track" => true  %>
 <%= form_for([:admin, @feedback_question], data: { turbo: false }) do |form| %>
   <% if @feedback_question.errors.any? %>
@@ -19,7 +16,6 @@
     <%= form.label :question_type, style: "display: block", class: "form-label" %>
     <%= form.select :question_type, options_for_select(FeedbackQuestion.question_types.map {|key, value| [key.titleize, FeedbackQuestion.question_types.key(value)]}, @feedback_question.question_type) %>
   </div>
-  <%# WHO, {}, :onChange => "showDemographics(this)", :prompt => true %>
 
   <div>
     <%= form.label :question, style: "display: block" %>

@@ -26,9 +26,9 @@
         <td><% if product.quantity == 0 %>
                 <p> ----- </p>
             <% else %><%= link_to "Add to cart", new_cart_item_path(product_id: product.id),  class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
-            <% end %></td>
+            <% end %>
+        </td>
       </tr>
-      
     <%end%>
   </tbody>
 </table>

@@ -21,12 +21,13 @@
         <td><%= link_to "Add to Wishlist", create_wish_list_wish_lists_path(product_id: product.id, price: product.price)%></td>
         <td><% if product.quantity == 0 %>
                 <p> Out Of Stock </p>
-               <% else  %><p> Available </p>
-               <% end %></td>
+              <% else  %><p> Available </p>
+              <% end %></td>
         <td><% if product.quantity == 0 %>
                 <p> ----- </p>
-            <% else %><%= link_to "Add to cart", new_cart_item_path(product_id: product.id),  class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
-            <% end %></td>
+              <% else %><%= link_to "Add to cart", new_cart_item_path(product_id: product.id),  class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
+              <% end %>
+          </td>
       </tr>
     <%end%>
   </tbody>

@@ -1,22 +1,33 @@
 <h3><%= link_to "Home Page", homes_path	%> || <%= link_to "Back", cart_items_path%></h3>
 <h1>Your Address</h1>
 <h3><%= link_to "Add new Address", new_address_path %><br></h3>
+
 <%= form_tag charges_path, method: :post  do %> 
   <% @addresses.each do |address| %>
-    <%= radio_button_tag "address_id", address.id, checked = false%>
-    <%= hidden_field_tag :address_id, address.id %>
-    <%= address.address_type %> Address<br>
-    address: <%= address.address_line1 + ", " +  address.address_line2 + ", " +  address.address_line3 + ", " + address.city + ". " %><br>
-    pincode: <%= address.pincode %><br>
-    state: <%= address.state %><br>
-    mobile_no: <%= address.mobile_no %>
-    <br>
-  <% end %>
-  <br>
+      <%= radio_button_tag "address_id", address.id, checked = false, id: :hidden_radio %>
+      <%= address.address_type %> Address<br>
+      address: <%= address.address_line1 + ", " +  address.address_line2 + ", " +  address.address_line3 + ", " + address.city + ". " %><br>
+      pincode: <%= address.pincode %><br>
+      state: <%= address.state %><br>
+      mobile_no: <%= address.mobile_no %>
+      <br>
+    <% end %>
+  <div class="btn-div" style="display:none;">
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-    data-description="Order Payment"
-    data-amount="<%= @total_amount %>"
-    data-locale="auto"></script>
+      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+      data-description="Order Payment"
+      data-amount="<%= @total_amount %>"
+      data-locale="auto"></script>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(document).on('change','input[type=radio]',function() {
+        if ($(this).is(':checked')) {
+          $('.btn-div').show()
+        }
+      });
+    })
+  </script>
   <% submit_tag "next" %>
 <% end %>
