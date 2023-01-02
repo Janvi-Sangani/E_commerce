@@ -12,7 +12,7 @@ module Admin
     end
   
     def create
-      @product = Product.new(product_params.merge(image: params[:product][:image]))
+      @product = Product.new(product_params.merge(image: params[:products][:image]))
       if @product.save
         flash[:messages] = "Product Added"
         redirect_to admin_products_path		

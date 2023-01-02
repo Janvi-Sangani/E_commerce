@@ -6,7 +6,6 @@
   <%= text_field_tag 'search', nil, placeholder: 'Search...' %><br>
   <%= text_field_tag 'price', nil, placeholder: 'Amount'%><br>
   <%= select_tag :status, options_for_select(Order.statuses.map {|k, v| [k.humanize, v]}) %>
-  <%#= date_field 'place_date'%>
   <input type="date" id="place_order" name="place_order"><br>
   <button type="submit">search</button>
   </form>

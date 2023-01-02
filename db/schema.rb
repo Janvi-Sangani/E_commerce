@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_19_070456) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_27_114037) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_070456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.string "stripe_customer_id"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -135,6 +136,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_070456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["rateable_type", "rateable_id"], name: "index_overall_averages_on_rateable"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.integer "amount"
+    t.string "payment_method"
+    t.string "stripe_payment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_payments_on_customer_id"
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -248,6 +259,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_070456) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "customers"
+  add_foreign_key "payments", "customers"
   add_foreign_key "products", "product_categories"
   add_foreign_key "reviews", "customers"
   add_foreign_key "reviews", "products"

@@ -19,8 +19,8 @@
       data-amount="<%= @total_amount %>"
       data-locale="auto"></script>
   </div>
- <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <script>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <script>
     $(document).ready(function(){
       $(document).on('change','input[type=radio]',function() {
         if ($(this).is(':checked')) {
@@ -28,8 +28,6 @@
         }
       });
     })
-    </script>
-    
-  
+  </script>
   <% submit_tag "next" %>
 <% end %>
